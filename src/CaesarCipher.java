@@ -11,10 +11,6 @@ public class CaesarCipher {
 
     public static void main(String[] args) throws IOException {
 
-//        ContactForm form = new ContactForm();
-//        form.setVisible(true);
-
-
 
         EncryptionMethod encryptionMethod = new EncryptionMethod();
         DecryptionMethod decryptionMethod = new DecryptionMethod();
