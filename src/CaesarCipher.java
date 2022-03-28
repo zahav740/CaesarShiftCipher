@@ -12,8 +12,8 @@ public class CaesarCipher {
     public static void main(String[] args) throws IOException {
 
 
-        EncryptionMethod encryptionMethod = new EncryptionMethod();
-        DecryptionMethod decryptionMethod = new DecryptionMethod();
+        Encryption encryptionMethod = new Encryption();
+        Decryption decryptionMethod = new Decryption();
         System.out.println("Сделай выбор: A - шифруем ***** B - дешифруем");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
@@ -32,28 +32,32 @@ public class CaesarCipher {
             System.out.println("введите ключ:");
             Scanner sc1 = new Scanner(System.in);
             int key = sc1.nextInt();
-            cypher = encryptionMethod.Encryption(stringBuilder.toString(), key);
+
+            cypher = encryptionMethod.encryption(stringBuilder.toString(), key);
+
             FileWriter writer = new FileWriter("test11.txt", false);
             writer.write(cypher);
             writer.flush();
-        } else if (choice.equalsIgnoreCase("B")) {
+        }
+        if (choice.equalsIgnoreCase("B")) {
             System.out.println("введите зашифрованный текст:");
             RandomAccessFile file2 = new RandomAccessFile("test11.txt", "rw");
             FileChannel c2 = file2.getChannel();
 
-            ByteBuffer buffer = ByteBuffer.allocate(6000);
+            ByteBuffer buffer1 = ByteBuffer.allocate(6000);
             StringBuilder sb2 = new StringBuilder();
-            c2.read(buffer);
-            buffer.flip();
-            while (buffer.hasRemaining()) {
-                sb2.append((char) buffer.get());
+            c2.read(buffer1);
+            buffer1.flip();
+            while (buffer1.hasRemaining()) {
+                sb2.append((char) buffer1.get());
             }
-            buffer.clear();
+            buffer1.clear();
             System.out.println("введите ключ:");
-            Scanner sc2 = new Scanner(System.in);
-            int keyDec = sc2.nextInt();
-            cypher2 = decryptionMethod.Decrypt(sb2.toString(), keyDec);
+                Scanner sc2 = new Scanner(System.in);
+                int keyDec = sc2.nextInt();
+            cypher2 = decryptionMethod.decrypt(sb2.toString(), keyDec);
         }
     }
 }
+
 
