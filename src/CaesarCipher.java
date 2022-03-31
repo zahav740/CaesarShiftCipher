@@ -64,17 +64,21 @@ public class CaesarCipher {
 
     //рекурсия
     public static int keyRec() {
-        Scanner sc3 = new Scanner(System.in);
-        int k = sc3.nextInt();
-        if (k <= 0) {
-            System.out.println("Введите ключ с положительным ключем");
-            return keyRec();
-        } else {
-            int key = k;
-            return key;
+        Scanner scanner = new Scanner(System.in);
+        int checkNum;
+        while (!scanner.hasNextInt()) {
+            System.out.println("Это не число!");
+            scanner.next();
         }
+        checkNum = scanner.nextInt();
+        if (checkNum <= 0) {
+            System.out.println("Введите положительное число!");
+            return keyRec();
+        }
+        return checkNum;
     }
 }
+
 
 
 
