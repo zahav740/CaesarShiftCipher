@@ -18,7 +18,7 @@ public class Encryption {
             }
             result += charIn;
         }
-        System.out.println(str + "\n\n" + "Текст зашифрован:" + "\n\n" + result);
+        System.out.println("\n" + "Текст зашифрован:" + "\n\n" + result);
         return result;
     }
 }

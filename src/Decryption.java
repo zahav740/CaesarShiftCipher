@@ -21,7 +21,7 @@ public class Decryption {
             result += charIn;
         }
         System.out.println();
-        System.out.println(str + "\n\n" + "Текст расшифрован:" + "\n\n" + result);
+        System.out.println("\n" + "Текст расшифрован:" + "\n\n" + result);
         return result;
     }
 }
