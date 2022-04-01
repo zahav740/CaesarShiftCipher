@@ -12,13 +12,12 @@ public class CaesarCipher {
 
         System.out.println("Сделай выбор: A - шифруем ***** B - дешифруем");
         Scanner scanner = new Scanner(System.in);
-        String choice = scanner.nextLine();
+        String buttonChoice = scanner.nextLine();
 
-        if (choice.equalsIgnoreCase("A")) {
-
+        if (buttonChoice.equalsIgnoreCase("A")) {
             String stringVal = readFileFromHd("notes3.txt");
             System.out.println("введите ключ:");
-            int key = keyRec(); // прописываем положительный ключ
+            int key = keyRecursion(); // прописываем положительный ключ
             cypher = Encryption.encrypt(stringVal, key); //передает зашифрованный текст
 
             FileWriter writer = new FileWriter("test11.txt", false);
@@ -26,12 +25,12 @@ public class CaesarCipher {
             writer.flush(); //записывает то, что передал write
             writer.close();
 
-        }else if (choice.equalsIgnoreCase("B")) {
+        }else if (buttonChoice.equalsIgnoreCase("B")) {
             System.out.println("введите зашифрованный текст:");
 
             String stringVal = readFileFromHd("test11.txt");
             System.out.println("введите ключ:");
-            int key = keyRec();
+            int key = keyRecursion();
             cypher = Decryption.decrypt(stringVal, key);
         }else{
             System.out.println("Вы должны ввести либо А, либо В латиницей!");
@@ -39,7 +38,7 @@ public class CaesarCipher {
     }
 
     //рекурсия
-    public static int keyRec() {
+    public static int keyRecursion() {
         Scanner scanner = new Scanner(System.in);
         int checkNum;
         while (!scanner.hasNextInt()) {
@@ -49,16 +48,16 @@ public class CaesarCipher {
         checkNum = scanner.nextInt();
         if (checkNum <= 0) {
             System.out.println("Введите положительное число!");
-            return keyRec();
+            return keyRecursion();
         }
         return checkNum;
     }
     private static String readFileFromHd(String path) throws IOException {
-        RandomAccessFile file = new RandomAccessFile(path, "rw");   //читаю из файла
-        FileChannel channel = file.getChannel();  // из file открывает канал
+        RandomAccessFile fileToRead = new RandomAccessFile(path, "rw");   //читаю из файла
+        FileChannel OpenChannel = fileToRead.getChannel();  // из fileToRead открывает канал
         ByteBuffer buffer = ByteBuffer.allocate(60000);  // заполнет буфер тестом
         StringBuilder stringBuilder = new StringBuilder(); // записывает текст в стрингбилдер
-        channel.read(buffer); //читает информацию из файла с помощью channel
+        OpenChannel.read(buffer); //читает информацию из файла с помощью OpenChannel
         buffer.flip(); //из режима записи в чтение
         while (buffer.hasRemaining()) { // читает
             stringBuilder.append((char) buffer.get()); // читает и кастит в чар присоединяет из буфера
