@@ -1,3 +1,4 @@
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -7,58 +8,33 @@ import java.util.Scanner;
 
 public class CaesarCipher {
     public static String cypher;
-    public static String cypher2;
-
     public static void main(String[] args) throws IOException {
 
         System.out.println("Сделай выбор: A - шифруем ***** B - дешифруем");
         Scanner scanner = new Scanner(System.in);
         String choice = scanner.nextLine();
 
-
         if (choice.equalsIgnoreCase("A")) {
-            RandomAccessFile file = new RandomAccessFile("notes3.txt", "rw");   //читаю из файла
-            FileChannel channel = file.getChannel();  // из file открывает канал
-            ByteBuffer buffer = ByteBuffer.allocate(60000);  // заполнет буфер тестом
-            StringBuilder stringBuilder = new StringBuilder(); // записывает текст в стрингбилдер
-            channel.read(buffer); //читает информацию из файла с помощью channel
-            buffer.flip(); //из режима записи в чтение
-            while (buffer.hasRemaining()) { // читает
-                stringBuilder.append((char) buffer.get()); // читает и кастит в чар присоединяет из буфера
-                // в стрингбилдер
-            }
-            buffer.clear(); // грубо говоря, затирает буфер с 0 позиции и зеписывает новую информацию
-            channel.close();
+
+            String stringVal = readFileFromHd("notes3.txt");
             System.out.println("введите ключ:");
             int key = keyRec(); // прописываем положительный ключ
-            cypher = Encryption.encryption(stringBuilder.toString(), key); //передает зашифрованный текст
+            cypher = Encryption.encrypt(stringVal, key); //передает зашифрованный текст
 
             FileWriter writer = new FileWriter("test11.txt", false);
             writer.write(cypher); // записываем шифровку в новый файл
             writer.flush(); //записывает то, что передал write
             writer.close();
 
-            /*
-            Извините, но дальше по сути то же самое. Разница только в том, что ДЕШЕФРУЕМ
-             */
-
-        }
-        if (choice.equalsIgnoreCase("B")) {
+        }else if (choice.equalsIgnoreCase("B")) {
             System.out.println("введите зашифрованный текст:");
-            RandomAccessFile file2 = new RandomAccessFile("test11.txt", "rw");
-            FileChannel c2 = file2.getChannel();
 
-            ByteBuffer buffer1 = ByteBuffer.allocate(60000);
-            StringBuilder sb2 = new StringBuilder();
-            c2.read(buffer1);
-            buffer1.flip();
-            while (buffer1.hasRemaining()) {
-                sb2.append((char) buffer1.get());
-            }
-            buffer1.clear();
+            String stringVal = readFileFromHd("test11.txt");
             System.out.println("введите ключ:");
             int key = keyRec();
-            cypher2 = Decryption.decrypt(sb2.toString(), key);
+            cypher = Decryption.decrypt(stringVal, key);
+        }else{
+            System.out.println("Вы должны ввести либо А, либо В латиницей!");
         }
     }
 
@@ -76,6 +52,21 @@ public class CaesarCipher {
             return keyRec();
         }
         return checkNum;
+    }
+    private static String readFileFromHd(String path) throws IOException {
+        RandomAccessFile file = new RandomAccessFile(path, "rw");   //читаю из файла
+        FileChannel channel = file.getChannel();  // из file открывает канал
+        ByteBuffer buffer = ByteBuffer.allocate(60000);  // заполнет буфер тестом
+        StringBuilder stringBuilder = new StringBuilder(); // записывает текст в стрингбилдер
+        channel.read(buffer); //читает информацию из файла с помощью channel
+        buffer.flip(); //из режима записи в чтение
+        while (buffer.hasRemaining()) { // читает
+            stringBuilder.append((char) buffer.get()); // читает и кастит в чар присоединяет из буфера
+            // в стрингбилдер
+        }
+        buffer.clear(); // грубо говоря, затирает буфер с 0 позиции и зеписывает новую информацию
+
+        return stringBuilder.toString();
     }
 }
 

@@ -1,5 +1,5 @@
 public class Encryption {
-    public static String encryption(String str, int key) {
+    public static String encrypt(String str, int key) {
         String result = "";
         for (int i = 0; i < str.length(); i++) {
             char charIn = str.charAt(i);
