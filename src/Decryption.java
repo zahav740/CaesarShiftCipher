@@ -1,6 +1,6 @@
 
 public class Decryption {
-    public static String decrypt(String str, int key) {
+    public static String textDecrypt(String str, int key) {
         int keyIn = Integer.parseInt("-" + key);
         String result = "";
         for (int i = 0; i < str.length(); i++) {

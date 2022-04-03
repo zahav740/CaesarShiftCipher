@@ -61,7 +61,7 @@ public class CaesarCipher {
             System.out.println("Введите текст:" + "\n\n" + stringVal + "\n");
             System.out.println("введите ключ:");
             int key = keyRecursion(); // прописываем положительный ключ
-            cypher = Encryption.encrypt(stringVal, key); //передает зашифрованный текст
+            cypher = Encryption.encryptText(stringVal, key); //передает зашифрованный текст
         }
         if (buttonChoice.equalsIgnoreCase("B")) {
 
@@ -69,7 +69,7 @@ public class CaesarCipher {
             System.out.println("Введите зашифрованный текст:" + "\n\n" + stringVal + "\n");
             System.out.println("введите ключ:");
             int key = keyRecursion();
-            cypher = Decryption.decrypt(stringVal, key);
+            cypher = Decryption.textDecrypt(stringVal, key);
         }
         if (!buttonChoice.equalsIgnoreCase("A") && !buttonChoice.equalsIgnoreCase("B")) {
             System.out.println("Вы должны ввести либо А, либо В латиницей!");
