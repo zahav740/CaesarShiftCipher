@@ -66,7 +66,7 @@ public class CaesarCipher {
         if (buttonChoice.equalsIgnoreCase("B")) {
 
             String stringVal = readFileFromHd("test11.txt");
-            System.out.println("Введите зашифрованный текст:" + "\n\n" + stringVal + "\n");
+            System.out.println("Введён зашифрованный текст:" + "\n\n" + stringVal + "\n");
             System.out.println("введите ключ:");
             int key = keyRecursion();
             cypher = Decryption.textDecrypt(stringVal, key);
