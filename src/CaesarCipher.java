@@ -36,6 +36,7 @@ public class CaesarCipher {
     }
 
     private static String readFileFromHd(String path) throws IOException {
+
         RandomAccessFile fileToRead = new RandomAccessFile(path, "rw");   //читаю из файла
         FileChannel openChannel = fileToRead.getChannel();  // из fileToRead открывает канал
         ByteBuffer buffer = ByteBuffer.allocate(60000);  // заполнет буфер тестом
