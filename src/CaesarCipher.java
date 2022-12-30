@@ -39,10 +39,13 @@ public class CaesarCipher {
 
         RandomAccessFile fileToRead = new RandomAccessFile(path, "rw");   //читаю из файла
         FileChannel openChannel = fileToRead.getChannel();  // из fileToRead открывает канал
-        ByteBuffer buffer = ByteBuffer.allocate(60000);  // заполнет буфер тестом
+        ByteBuffer buffer = ByteBuffer.allocate(64);  // заполнет буфер тестом
         StringBuilder stringBuilder = new StringBuilder(); // записывает текст в стрингбилдер
-        openChannel.read(buffer); //читает информацию из файла с помощью OpenChannel
+        int count = 0;
+        while(count >=0){
+       count = openChannel.read(buffer); //читает информацию из файла с помощью OpenChannel
         buffer.flip(); //из режима записи в чтение
+        }
         while (buffer.hasRemaining()) { // читает
             stringBuilder.append((char) buffer.get()); // читает и кастит в чар присоединяет из буфера
             // в стрингбилдер
